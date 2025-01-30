@@ -5,7 +5,7 @@ services:
     build: .
     container_name: karalizai
     ports:
-      - "3001:3001"
+      - "3005:3001"
     depends_on:
       - scraper
     networks:
