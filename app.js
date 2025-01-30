@@ -237,7 +237,7 @@ app.post('/analyze', (req, res) => {
     res.send('Analysis started. Check the console for updates.');
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     logTransaction('server_start', { port: PORT });
