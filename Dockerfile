@@ -31,6 +31,8 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
+COPY public/ ./public/
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 

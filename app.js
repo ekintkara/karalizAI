@@ -20,8 +20,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({
     limit: '50mb'
 }));
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/karalizai/static', express.static(path.join(__dirname, 'public')));
 // Logging function
 function logTransaction(type, details) {
     const logEntry = { 
