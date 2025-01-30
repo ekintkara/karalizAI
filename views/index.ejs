@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KaralizAI</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .log-container {
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        font-family: monospace;
+        font-size: 0.9em;
+      }
+
+      .log-messages {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .log-entry {
+        margin-bottom: 5px;
+        padding: 3px 5px;
+        border-radius: 3px;
+      }
+
+      .log-entry.log-default {
+        color: #333;
+      }
+
+      .log-entry.log-info {
+        color: #0066cc;
+        background-color: #e6f2ff;
+      }
+
+      .log-entry.log-success {
+        color: #28a745;
+        background-color: #d4edda;
+      }
+
+      .log-entry.log-warning {
+        color: #ffc107;
+        background-color: #fff3cd;
+      }
+
+      .log-entry.log-error {
+        color: #dc3545;
+        background-color: #f8d7da;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .project-description {
+        background-color: #f0f8ff;
+        border-left: 4px solid #007bff;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+        font-style: italic;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .dropdown-container {
+        margin: 20px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .dropdown-header {
+        width: 100%;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .dropdown-content {
+        display: none;
+        padding: 15px;
+        background-color: white;
+      }
+      .dropdown-content.open {
+        display: block;
+      }
+      .dropdown-icon {
+        transition: transform 0.3s ease;
+      }
+      .dropdown-icon.rotated {
+        transform: rotate(180deg);
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; 
+        margin-top: 20px;
+      }
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>🚗 Araç Karşılaştırma Ve Analiz Aracı</h1>
+        <div class="project-description">
+          <p>
+            Bu proje, kısaca ilan sayfalarına giriyor, oradaki araç bilgilerini toplayıp sonra yapay zekâya veriyor. Yapay zekâ da sana özet veya karşılaştırma gibi raporlar hazırlıyor. Yani otomatik olarak "Bu araçların hangisi daha mantıklı?" sorusuna yanıt bulmaya yarıyor. Sen uğraşmadan verileri işliyor ve sonuçları güzelce paketleyip önüne koyuyor. Böylece her ilanın sayfasını tek tek gezmene gerek kalmıyor. Tek tıkla bir sürü ilana göz atmış gibi oluyorsun ve doğru aracı sebepleri ile birlikte sana sunuyor.
+          </p>
+        </div>
+        <% if (locals.error) { %>
+        <div class="error-banner"><%= error %></div>
+        <% } %>
+        <div class="dropdown-container">
+          <button class="dropdown-header" onclick="toggleDropdown(this)">
+            Ücretsiz Gemini AI API key ile Kullanabilirsiniz 
+            <span class="dropdown-icon">▼</span>
+          </button>
+          <div class="dropdown-content">
+            <div class="video-container">
+              <iframe 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/OVnnVnLZPEo" 
+                title="Gemini AI API Key Alma Rehberi" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <h3>1. Google hesabına sahip olun</h3>
+            <p>API'lere veya Google Cloud üzerinde herhangi bir hizmete erişebilmek için geçerli bir Google hesabınız olması gerekir. </p>
+
+            <h3>2. Faturalandırma hesabı</h3>
+            <p>Eğer Google Cloud Platform'u ilk defa kullanıyorsanız, bir deneme süresi (free trial) veya etkin bir faturalandırma hesabı oluşturmanız gerekebilir. Google, bazı API'ler için faturalandırma bilgisi tanımlamayı zorunlu kılar.</p>
+
+            <h3>3. aistudio.google.com/app/apikey?hl=tr Adresine Erişim</h3>
+            <ul>
+              <li>  <a 
+                href="https://aistudio.google.com/app/apikey?hl=tr" 
+                class="submit-btn"
+                style="    display: flex
+                ;
+                    /* width: 100%; */
+                    text-align: center;
+                    padding: 4px;
+                    justify-content: center;"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Gemini AI Adresine Tıklayarak Gidebilirsiniz
+              </a></strong></li>
+              <li><strong>Gerekli izinleri onaylayın:</strong> Eğer sayfa sizden ek izinler isterse (örneğin e-posta adresinize erişim vb.), izinleri inceleyip onay verin.</li>
+              <li><strong>API oluşturma/atalama:</strong> Bu adreste, Gemini veya benzeri bir Google AI Modeli için API anahtarı oluşturabileceğiniz bir panel görebilirsiniz.</li>
+            </ul>
+          
+          </div>
+        </div>
+        <form id="analysisForm" action="/analyze" method="POST">
+          <div class="form-group">
+            <label>LLM Tipi:</label>
+            <div class="llm-selection">
+              <label>
+                <input
+                  type="radio"
+                  id="llmType"
+                  name="llmType"
+                  value="gpt-4o"
+                  checked
+                />
+                GPT-4o
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  id="llmType"
+                  value="gemini-1.5"
+                  name="llmType"
+                />
+                Gemini 1.5
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="apiKey">LLM API Key:</label>
+            <input type="text" id="apiKey" name="apiKey" required />
+            <small class="error" id="apiKeyError"></small>
+          </div>
+          <div class="form-group">
+            <label for="links">Araç Linkleri (comma-separated):</label>
+            <textarea
+              id="links"
+              name="links"
+              required
+              placeholder="Example:https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/ ,https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/ ,https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/ "
+            ></textarea>
+            <small class="error" id="linksError"></small>
+          </div>
+
+          <button type="submit" class="submit-btn">Analizi Başlat</button>
+        </form>
+      
+      </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay hidden">
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <h2>Analiz Yapılıyor</h2>
+        <div id="logContainer" class="log-container">
+          <div id="logMessages" class="log-messages"></div>
+        </div>
+        <div id="openaiResponseContainer" class="openai-response hidden">
+          <h2>AI Cevabı</h2>
+          <pre id="openaiResponseLoadingText"></pre>
+        </div>
+        <button id="cancelAnalysis" class="cancel-btn">Kapat</button>
+      </div>
+    </div>
+
+    <div id="resultsOverlay" class="loading-overlay hidden">
+      <div class="loading-container results-container">
+        <div id="openaiAnalysisContainer" class="openai-analysis-container">
+          <h2>Araç Analiz Sonuçları</h2>
+          <div
+            id="openaiResponseResultsText"
+            class="openai-response-text"
+          ></div>
+        </div>
+        <div id="scrapedResultsContainer" class="scraped-results-container">
+          <h3>Araç Detayları</h3>
+          <pre id="scrapedResultsText" class="scraped-results-text"></pre>
+        </div>
+        <button id="closeResults" class="close-results-btn">
+          Kapat
+        </button>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/loading.js"></script>
+    <script src="/validation.js"></script>
+    <script src="/results.js"></script>
+    <script>
+      function renderMarkdown(text) {
+        return marked.parse(text, { breaks: true });
+      }
+
+      function displayAnalysisResults(summary, results) {
+        const openaiResponseElement = document.getElementById('openaiResponseResultsText');
+        const scrapedResultsElement = document.getElementById('scrapedResultsText');
+        const resultsOverlay = document.getElementById('resultsOverlay');
+
+        openaiResponseElement.innerHTML = renderMarkdown(summary);
+        
+        scrapedResultsElement.textContent = JSON.stringify(results, null, 2);
+
+        resultsOverlay.classList.remove('hidden');
+      }
+
+      window.displayAnalysisResults = displayAnalysisResults;
+
+      function toggleDropdown(button) {
+        const dropdownContent = button.nextElementSibling;
+        const dropdownIcon = button.querySelector('.dropdown-icon');
+        
+        dropdownContent.classList.toggle('open');
+        dropdownIcon.classList.toggle('rotated');
+      }
+    </script>
+  </body>
+</html>

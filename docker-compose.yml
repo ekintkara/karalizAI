@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: karalizai
+    ports:
+      - "3001:3001"
+    depends_on:
+      - scraper
+    networks:
+      - mynetwork
+
+  scraper:
+    image: zfcsoftware/cf-clearance-scraper:latest
+    container_name: cf-scraper
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - browserLimit=20
+      - timeOut=60000
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

@@ -1,0 +1,63 @@
+{"type":"analysis_start","apiKeyProvided":true,"linksCount":3}
+{"type":"browser_connected","browserType":"puppeteer-real-browser","headless":false}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","linkIndex":0}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","status":"success"}
+{"type":"extraction_attempt_failed","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","retriesLeft":2,"error":"Waiting for selector `.classified-price-wrapper` failed: Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object"}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","extractedFields":["details","price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","linkIndex":1}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","extractedFields":["details","price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","linkIndex":2}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","extractedFields":["details","price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"analysis_complete","totalLinks":3,"successfulExtractions":0}
+{"type":"results_saved","filePath":"C:\\Users\\taylanekinkara\\Desktop\\arackarsilastirma\\results.json"}
+{"type":"analysis_start","apiKeyProvided":true,"linksCount":3}
+{"type":"browser_connected","browserType":"puppeteer-real-browser","headless":false}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","linkIndex":0}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","status":"success"}
+{"type":"extraction_attempt_failed","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","retriesLeft":2,"error":"Waiting for selector `.classified-price-wrapper` failed: Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object"}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","linkIndex":1}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","linkIndex":2}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"analysis_complete","totalLinks":3,"successfulExtractions":0}
+{"type":"results_saved","filePath":"C:\\Users\\taylanekinkara\\Desktop\\arackarsilastirma\\results.json"}
+{"type":"analysis_start","apiKeyProvided":true,"linksCount":3}
+{"type":"browser_connected","browserType":"puppeteer-real-browser","headless":false}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","linkIndex":0}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","status":"success"}
+{"type":"extraction_attempt_failed","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","retriesLeft":2,"error":"Waiting for selector `.classified-price-wrapper` failed: Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object"}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","linkIndex":1}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","linkIndex":2}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"analysis_complete","totalLinks":3,"successfulExtractions":0}
+{"type":"results_saved","filePath":"C:\\Users\\taylanekinkara\\Desktop\\arackarsilastirma\\results.json"}
+{"type":"analysis_start","apiKeyProvided":true,"linksCount":3}
+{"type":"browser_connected","browserType":"puppeteer-real-browser","headless":false}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","linkIndex":0}
+{"type":"analysis_start","apiKeyProvided":true,"linksCount":3}
+{"type":"browser_connected","browserType":"puppeteer-real-browser","headless":false}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","linkIndex":0}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","status":"success"}
+{"type":"extraction_attempt_failed","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","retriesLeft":2,"error":"Waiting for selector `.classified-price-wrapper` failed: Protocol error (Runtime.callFunctionOn): Argument should belong to the same JavaScript world as target object"}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","linkIndex":1}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"link_processing_start","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","linkIndex":2}
+{"type":"page_load","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","status":"success"}
+{"type":"data_extraction","url":"https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/","extractedFields":["price","location","description","damageInfo","İlan Tarihi","Marka","Seri","Model","Yıl","Yakıt","Vites","Araç Durumu","KM","Kasa Tipi","Motor Gücü","Motor Hacmi","Çekiş","Renk","Ağır Hasar Kayıtlı"]}
+{"type":"analysis_complete","totalLinks":3,"successfulExtractions":0}
+{"type":"results_saved","filePath":"C:\\Users\\taylanekinkara\\Desktop\\arackarsilastirma\\results.json"}
