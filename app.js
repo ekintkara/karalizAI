@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({
     limit: '50mb'
 }));
-app.use('/karalizai',express.static(path.join(__dirname, 'public')));
+app.use('/karalizai/', express.static(path.join(__dirname, 'public')));
 // Logging function
 function logTransaction(type, details) {
     const logEntry = { 
@@ -51,10 +51,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/analyze-stream', (req, res) => {
-    const { apiKey, links } = req.query;
+    console.log("Request Query:", req.query);
+    
+    const { apiKey, links, llmType } = req.query;
 
     if (!links) {
-        res.write(`event: error\ndata: ${JSON.stringify({ error: 'Links parameter is missing' })}\n\n`);
+        res.write(`event: error\ndata: ${JSON.stringify({ error: "Links parameter is missing" })}\n\n`);
         res.end();
         return;
     }
@@ -98,13 +100,6 @@ app.get('/analyze-stream', (req, res) => {
     });
 
     // Validate inputs
-    const apiKeyPattern = /^sk-/;
-    if (!apiKeyPattern.test(apiKey)) {
-        res.write(`event: error\ndata: ${JSON.stringify({ error: 'Invalid API Key' })}\n\n`);
-        res.end();
-        return;
-    }
-
     const invalidLinks = parsedLinks.filter(link => !validator.isURL(link, {
         protocols: ['http', 'https'],
         require_protocol: true
@@ -118,7 +113,7 @@ app.get('/analyze-stream', (req, res) => {
 
     // Start analysis in a separate process
     const { fork } = require('child_process');
-    const analysisProcess = fork(path.join(__dirname, 'success.js'), [apiKey, ...parsedLinks]);
+    const analysisProcess = fork(path.join(__dirname, 'success.js'), [apiKey, llmType, ...parsedLinks]);
 
     analysisProcess.on('message', (message) => {
         if (message.type === 'log') {
@@ -159,15 +154,17 @@ app.get('/results.json', (req, res) => {
 
 app.post('/analyze', (req, res) => {
     // Log entire request body for debugging
-    console.log('Request Body:', JSON.stringify(req.body, null, 2));
+    console.log('Request Body:', req.body);
 
     const apiKey = req.body.apiKey ? req.body.apiKey.trim() : '';
     const linksInput = req.body.links || '';
+    const llmType = req.body.llmType || 'gpt-4o'; // Default to 'gpt-4o' if not provided
     
     // Log incoming request
     logTransaction('analyze_request', { 
         apiKeyProvided: !!apiKey, 
         linksProvided: !!linksInput,
+        llmType,
         clientIp: req.ip 
     });
     
@@ -180,26 +177,13 @@ app.post('/analyze', (req, res) => {
             clientIp: req.ip 
         });
         return res.status(400).render('index', { 
-            error: 'Please provide both API Key and Vehicle Links.' 
+            error: 'Please provide API Key, Vehicle Links, and LLM Type.' 
         });
     }
 
     // Split and clean links
     const links = linksInput.split(',').map(link => link.trim()).filter(link => link);
     
-    // Validate API Key
-    const apiKeyPattern = /^sk-/;
-    if (!apiKeyPattern.test(apiKey)) {
-        logTransaction('validation_error', { 
-            error: 'Invalid API Key', 
-            reason: 'Does not start with sk-',
-            clientIp: req.ip 
-        });
-        return res.status(400).render('index', { 
-            error: 'Invalid API Key. Must start with "sk-".' 
-        });
-    }
-
     // Validate Links
     const invalidLinks = links.filter(link => !validator.isURL(link, {
         protocols: ['http', 'https'],
@@ -219,7 +203,7 @@ app.post('/analyze', (req, res) => {
 
     // Start analysis in a separate process
     const { fork } = require('child_process');
-    const analysisProcess = fork(path.join(__dirname, 'success.js'), [apiKey, ...links]);
+    const analysisProcess = fork(path.join(__dirname, 'success.js'), [apiKey, llmType, ...links]);
 
     analysisProcess.on('message', (message) => {
         if (message.type === 'log') {
@@ -238,6 +222,6 @@ app.post('/analyze', (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log("Server is running on port ${PORT}");
     logTransaction('server_start', { port: PORT });
 });

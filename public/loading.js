@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function createEventSource() {
             console.log('Attempting to create EventSource');
             
-            eventSource = new EventSource(`/analyze?apiKey=${encodeURIComponent(apiKey)}&links=${encodeURIComponent(links)}&llmType=${encodeURIComponent(llmType)}`, {
+            eventSource = new EventSource(`/analyze-stream?apiKey=${encodeURIComponent(apiKey)}&links=${encodeURIComponent(links)}&llmType=${encodeURIComponent(llmType)}`, {
                 withCredentials: false
               });
 
@@ -83,10 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('Log entry:', logEntry);
                     
                     const logType = logEntry.level || 
-                        (logEntry.includes('error') ? 'error' : 
-                        (logEntry.includes('warning') ? 'warning' : 'default'));
+                        (logEntry.message && logEntry.message.includes('error') ? 'error' : 
+                        (logEntry.message && logEntry.message.includes('warning') ? 'warning' : 'default'));
                     
-                    addLogMessage(logEntry, logType);
+                    addLogMessage(logEntry.message || logEntry, logType);
                 } catch (parseError) {
                     console.error('Error parsing log entry:', parseError);
                     addLogMessage(event.data, 'error');

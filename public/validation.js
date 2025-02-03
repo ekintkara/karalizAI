@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('analysisForm');
     const apiKeyInput = document.getElementById('apiKey');
     const linksInput = document.getElementById('links');
+    const llmType = document.getElementById('llmType');
     const apiKeyError = document.getElementById('apiKeyError');
     const linksError = document.getElementById('linksError');
 
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         const apiKey = formData.get('apiKey');
         const links = formData.get('links');
+        const llmType = formData.get('llmType');
 
         console.log('Submitting form with:', { apiKey, links });
 
@@ -54,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify({
                 apiKey: apiKey,
-                links: links
+                links: links,
+                llmType: llmType
             })
         })
         .then(response => {
