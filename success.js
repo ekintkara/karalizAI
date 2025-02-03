@@ -5,12 +5,47 @@ const initCycleTLS = require('cycletls');
 const cheerio = require('cheerio');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
+let proxyList = [];
+let currentProxyIndex = 0;
+
+const fetchProxyList = async () => {
+  try {
+    const response = await axios.get('https://proxy.webshare.io/api/v2/proxy/list/download/ygwtymnmgkjpevbqdmwluintlppyxycjelntekib/-/any/username/direct/-/');
+    const proxyText = response.data;
+    
+    // Parse the proxy text into an array of proxy objects
+    proxyList = proxyText.split('\n')
+      .filter(line => line.trim())
+      .map(line => {
+        const [host, port, username, password] = line.split(':');
+        return { host, port: parseInt(port), username, password };
+      });
+    
+    console.log(`Loaded ${proxyList.length} proxies`);
+  } catch (error) {
+    console.error('Error fetching proxy list:', error.message);
+    throw error;
+  }
+};
+
+const getNextProxy = () => {
+  if (proxyList.length === 0) {
+    throw new Error('No proxies available');
+  }
+  const proxy = proxyList[currentProxyIndex];
+  currentProxyIndex = (currentProxyIndex + 1) % proxyList.length;
+  return proxy;
+};
+
 (async () => {
   const [apiKey, llmType, ...links] = process.argv.slice(2);
 
   console.log("llmType", llmType);
   console.log("links", links);
   console.log("apiKey", apiKey);
+
+  // Fetch proxy list before starting
+  await fetchProxyList();
 
   const cycleTLS = await initCycleTLS();
 
@@ -22,12 +57,20 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 
     while (!success && retries > 0) {
       try {
+        const currentProxy = getNextProxy();
+        
         const session = await fetch("http://localhost:3000/cf-clearance-scraper", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             url: link,
             mode: "waf-session",
+            proxy: {
+              host: currentProxy.host,
+              port: currentProxy.port,
+              username: currentProxy.username,
+              password: currentProxy.password
+            }
           }),
         })
           .then((res) => res.json())

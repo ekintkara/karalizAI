@@ -14,12 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (typeof openaiResponse === 'string') {
                 responseText = openaiResponse;
-            } else if (openaiResponse && openaiResponse.summary) {
-                responseText = openaiResponse.summary;
-            } else if (openaiResponse && openaiResponse.text) {
-                responseText = openaiResponse.text;
-            } else {
-                responseText = JSON.stringify(openaiResponse, null, 2);
+            } else if (openaiResponse && typeof openaiResponse === 'object') {
+                // Handle case where response is an array-like object
+                if (Array.from(Object.keys(openaiResponse)).every(key => !isNaN(parseInt(key)) || key === 'type')) {
+                    responseText = Object.values(openaiResponse)
+                        .filter(val => typeof val === 'string')
+                        .join('');
+                } else if (openaiResponse.summary) {
+                    responseText = openaiResponse.summary;
+                } else if (openaiResponse.text) {
+                    responseText = openaiResponse.text;
+                } else {
+                    responseText = JSON.stringify(openaiResponse, null, 2);
+                }
             }
 
             openaiResponseText.innerHTML = responseText 
