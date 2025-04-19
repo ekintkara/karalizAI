@@ -202,14 +202,10 @@
             <small class="error" id="apiKeyError"></small>
           </div>
           <div class="form-group">
-            <label for="links">Araç Linkleri (comma-separated):</label>
-            <textarea
-              id="links"
-              name="links"
-              required
-              placeholder="Example:https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-satilik-araba-1223788853/detay/ ,https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-peugeot-301-154.000km-de-1224077055/detay/ ,https://www.sahibinden.com/ilan/vasita-otomobil-peugeot-sahibinden-2013-techno-plus-1223392789/detay/ "
-            ></textarea>
-            <small class="error" id="linksError"></small>
+            <label for="sharedUrl">Paylaşılan Liste URL'si:</label>
+            <input type="text" id="sharedUrl" name="sharedUrl" required 
+                   placeholder="Örnek: https://shbd.io/s/JMrhWjoY" />
+            <small class="error" id="sharedUrlError"></small>
           </div>
 
           <button type="submit" class="submit-btn">Analizi Başlat</button>

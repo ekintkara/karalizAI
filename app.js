@@ -53,27 +53,21 @@ app.get('/', (req, res) => {
 app.get('/analyze-stream', (req, res) => {
     console.log("Request Query:", req.query);
     
-    const { apiKey, links, llmType } = req.query;
+    const { apiKey, sharedUrl, llmType } = req.query;
 
-    if (!links) {
-        res.write(`event: error\ndata: ${JSON.stringify({ error: "Links parameter is missing" })}\n\n`);
+    if (!sharedUrl) {
+        res.write(`event: error\ndata: ${JSON.stringify({ error: "Paylaşılan URL parametresi eksik" })}\n\n`);
         res.end();
         return;
     }
-
-    const parsedLinks = links.split(',').map(link => link.trim());
-
-    // Set headers for Server-Sent Events
     res.writeHead(200, {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-open'
     });
 
-    // Create a custom event emitter for logging
     const logEmitter = new EventEmitter();
 
-    // Capture and forward logs
     const originalLogTransaction = logTransaction;
     global.logTransaction = (type, details) => {
         const logEntry = originalLogTransaction(type, details);
@@ -88,6 +82,9 @@ app.get('/analyze-stream', (req, res) => {
             const parsedMessage = JSON.parse(message);
             if (parsedMessage.type === 'openai_response') {
                 res.write(`event: openai_response\ndata: ${JSON.stringify(parsedMessage)}\n\n`);
+            } else if (parsedMessage.type === 'analysis_log') {
+                const logMessage = Object.values(parsedMessage).join('');
+                res.write(`event: log\ndata: ${JSON.stringify({ type: 'log', data: logMessage })}\n\n`);
             }
         } catch (error) {
             originalConsoleLog(message);
@@ -99,21 +96,19 @@ app.get('/analyze-stream', (req, res) => {
         res.write(`event: log\ndata: ${JSON.stringify(logEntry)}\n\n`);
     });
 
-    // Validate inputs
-    const invalidLinks = parsedLinks.filter(link => !validator.isURL(link, {
+    // Validate URL
+    if (!validator.isURL(sharedUrl, {
         protocols: ['http', 'https'],
         require_protocol: true
-    }));
-
-    if (invalidLinks.length > 0) {
-        res.write(`event: error\ndata: ${JSON.stringify({ error: 'Invalid URLs', invalidLinks })}\n\n`);
+    })) {
+        res.write(`event: error\ndata: ${JSON.stringify({ error: 'Geçersiz URL formatı' })}\n\n`);
         res.end();
         return;
     }
 
     // Start analysis in a separate process
     const { fork } = require('child_process');
-    const analysisProcess = fork(path.join(__dirname, 'success.js'), [apiKey, llmType, ...parsedLinks]);
+    const analysisProcess = fork(path.join(__dirname, 'success.js'), [apiKey, llmType, sharedUrl]);
 
     analysisProcess.on('message', (message) => {
         if (message.type === 'log') {
@@ -153,57 +148,47 @@ app.get('/results.json', (req, res) => {
 });
 
 app.post('/analyze', (req, res) => {
-    // Log entire request body for debugging
     console.log('Request Body:', req.body);
 
     const apiKey = req.body.apiKey ? req.body.apiKey.trim() : '';
-    const linksInput = req.body.links || '';
-    const llmType = req.body.llmType || 'gpt-4o'; // Default to 'gpt-4o' if not provided
+    const sharedUrl = req.body.sharedUrl ? req.body.sharedUrl.trim() : '';
+    const llmType = req.body.llmType || 'gpt-4o';
     
-    // Log incoming request
     logTransaction('analyze_request', { 
         apiKeyProvided: !!apiKey, 
-        linksProvided: !!linksInput,
+        sharedUrlProvided: !!sharedUrl,
         llmType,
         clientIp: req.ip 
     });
     
-    // Validate inputs
-    if (!apiKey || !linksInput) {
+    if (!apiKey || !sharedUrl) {
         logTransaction('validation_error', { 
             error: 'Missing required parameters', 
             missingApiKey: !apiKey,
-            missingLinks: !linksInput,
+            missingSharedUrl: !sharedUrl,
             clientIp: req.ip 
         });
         return res.status(400).render('index', { 
-            error: 'Please provide API Key, Vehicle Links, and LLM Type.' 
+            error: 'Lütfen API Key ve Paylaşılan URL bilgilerini giriniz.' 
         });
     }
 
-    // Split and clean links
-    const links = linksInput.split(',').map(link => link.trim()).filter(link => link);
-    
-    // Validate Links
-    const invalidLinks = links.filter(link => !validator.isURL(link, {
+    if (!validator.isURL(sharedUrl, {
         protocols: ['http', 'https'],
         require_protocol: true
-    }));
-
-    if (invalidLinks.length > 0) {
+    })) {
         logTransaction('validation_error', { 
-            error: 'Invalid URLs', 
-            invalidLinks,
+            error: 'Invalid URL', 
+            invalidUrl: sharedUrl,
             clientIp: req.ip 
         });
         return res.status(400).render('index', { 
-            error: `Invalid URL(s): ${invalidLinks.join(', ')}` 
+            error: 'Geçersiz URL formatı' 
         });
     }
 
-    // Start analysis in a separate process
     const { fork } = require('child_process');
-    const analysisProcess = fork(path.join(__dirname, 'success.js'), [apiKey, llmType, ...links]);
+    const analysisProcess = fork(path.join(__dirname, 'success.js'), [apiKey, llmType, sharedUrl]);
 
     analysisProcess.on('message', (message) => {
         if (message.type === 'log') {
@@ -217,7 +202,7 @@ app.post('/analyze', (req, res) => {
         logTransaction('analysis_complete', { status: code === 0 ? 'success' : 'error' });
     });
 
-    res.send('Analysis started. Check the console for updates.');
+    res.send('Analiz başlatıldı. Konsolu kontrol ediniz.');
 });
 
 const PORT = process.env.PORT || 3001;
